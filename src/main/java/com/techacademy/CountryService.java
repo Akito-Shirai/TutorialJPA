@@ -37,6 +37,9 @@ public class CountryService {
 
     @Transactional
     public void deleteCountry(String code) {
+        if (!repository.findById(code).isPresent()) {
+            throw new IllegalArgumentException("The specified code does not exist: " + code);
+        }
         repository.deleteById(code);
     }
 }
